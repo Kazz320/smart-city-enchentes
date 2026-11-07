@@ -232,6 +232,9 @@
 
     const TOPICO_AGUA = "smartcity/enchente_7f3a/cps1/agua";
     const TOPICO_ALERTA = "smartcity/enchente_7f3a/cps1/alerta";
+        
+    const TOPICO_CLIMA = "smartcity/enchente_7f3a/cps2/clima";
+    const TOPICO_COMPORTA = "smartcity/enchente_7f3a/cps2/comporta";
 
     cliente.on("connect", function () {
         console.log("Conectado ao HiveMQ!");
@@ -239,8 +242,12 @@
         document.getElementById("conexao").textContent =
             "● MQTT conectado!";
 
-        cliente.subscribe([TOPICO_AGUA, TOPICO_ALERTA]);
-    });
+    cliente.subscribe([
+        TOPICO_AGUA,
+        TOPICO_ALERTA,
+        TOPICO_CLIMA,
+        TOPICO_COMPORTA
+    ]);
 
     cliente.on("error", function (erro) {
         console.log("Erro MQTT:", erro);
@@ -272,6 +279,27 @@
                 ? "ALERTA! Risco crítico de enchente!"
                 : "Situação do rio normalizada.";
         }
+        if (topico === TOPICO_CLIMA) {
+            const clima = JSON.parse(dados);
+
+            document.getElementById("temperatura").textContent =
+                clima.temperatura + " °C";
+
+            document.getElementById("umidade").textContent =
+                clima.umidade + " %";
+
+            document.getElementById("chuva").textContent =
+                clima.nivel_chuva + " (" + clima.chuva + ")";
+        }
+
+    if (topico === TOPICO_COMPORTA) {
+          const comporta = JSON.parse(dados);
+
+        document.getElementById("comporta").textContent =
+            comporta.estado + " (" + comporta.angulo + "°)";
+    }
+
+            
     });
 </script>
     
