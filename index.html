@@ -354,13 +354,12 @@
                 semaforo.estado +
                 (semaforo.alerta_enchente ? " — ALERTA DE ENCHENTE" : "");
         }
+    });
 
-        function enviarComando(topico, comando) {
+         function enviarComando(topico, comando) {
             cliente.publish(topico, comando);
-
             console.log("Comando enviado:", comando);
         }
-    });
 </script>
     
     </body>
