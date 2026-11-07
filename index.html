@@ -220,5 +220,60 @@
         Projeto acadêmico de IoT e Sistemas Ciberfísicos — Smart City
     </footer>
 
+    <script>
+    const BROKER = "wss://broker.hivemq.com:8884/mqtt";
+
+    const cliente = mqtt.connect(BROKER, {
+        clientId: "smartcity_dashboard_7f3a",
+        clean: true,
+        connectTimeout: 10000,
+        reconnectPeriod: 3000
+    });
+
+    const TOPICO_AGUA = "smartcity/enchente_7f3a/cps1/agua";
+    const TOPICO_ALERTA = "smartcity/enchente_7f3a/cps1/alerta";
+
+    cliente.on("connect", function () {
+        console.log("Conectado ao HiveMQ!");
+
+        document.getElementById("conexao").textContent =
+            "● MQTT conectado!";
+
+        cliente.subscribe([TOPICO_AGUA, TOPICO_ALERTA]);
+    });
+
+    cliente.on("error", function (erro) {
+        console.log("Erro MQTT:", erro);
+    });
+
+    cliente.on("reconnect", function () {
+        document.getElementById("conexao").textContent =
+            "● Reconectando ao MQTT...";
+    });
+
+    cliente.on("message", function (topico, mensagem) {
+        const dados = mensagem.toString();
+
+        console.log("Mensagem recebida:", topico, dados);
+
+        if (topico === TOPICO_AGUA) {
+            const agua = JSON.parse(dados);
+
+            document.getElementById("distancia-agua").textContent =
+                agua.distancia + " cm";
+
+            document.getElementById("risco").textContent =
+                agua.risco;
+        }
+
+        if (topico === TOPICO_ALERTA) {
+            document.getElementById("alerta").textContent =
+                dados === "CRITICO"
+                ? "ALERTA! Risco crítico de enchente!"
+                : "Situação do rio normalizada.";
+        }
+    });
+</script>
+    
 </body>
 </html>
