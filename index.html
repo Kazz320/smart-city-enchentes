@@ -248,7 +248,7 @@
         TOPICO_CLIMA,
         TOPICO_COMPORTA
     ]);
-
+});
     cliente.on("error", function (erro) {
         console.log("Erro MQTT:", erro);
     });
@@ -292,12 +292,12 @@
                 clima.nivel_chuva + " (" + clima.chuva + ")";
         }
 
-    if (topico === TOPICO_COMPORTA) {
+        if (topico === TOPICO_COMPORTA) {
           const comporta = JSON.parse(dados);
 
-        document.getElementById("comporta").textContent =
-            comporta.estado + " (" + comporta.angulo + "°)";
-    }
+            document.getElementById("comporta").textContent =
+                comporta.estado + " (" + comporta.angulo + "°)";
+        }
 
             
     });
