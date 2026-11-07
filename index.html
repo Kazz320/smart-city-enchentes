@@ -234,6 +234,8 @@
     const TOPICO_ALERTA = "smartcity/enchente_7f3a/cps1/alerta";
     const TOPICO_CLIMA = "smartcity/enchente_7f3a/cps2/clima";
     const TOPICO_COMPORTA = "smartcity/enchente_7f3a/cps2/comporta";
+    const TOPICO_VEICULOS = "smartcity/enchente_7f3a/cps3/veiculos";
+    const TOPICO_SEMAFORO = "smartcity/enchente_7f3a/cps3/semaforo";
 
     cliente.on("connect", function () {
         console.log("Conectado ao HiveMQ!");
@@ -245,7 +247,9 @@
             TOPICO_AGUA,
             TOPICO_ALERTA,
             TOPICO_CLIMA,
-            TOPICO_COMPORTA
+            TOPICO_COMPORTA,
+            TOPICO_VEICULOS,
+            TOPICO_SEMAFORO
         ]);
     });
 
@@ -298,6 +302,23 @@
 
             document.getElementById("comporta").textContent =
                 comporta.estado + " (" + comporta.angulo + "°)";
+        }
+        if (topico === TOPICO_VEICULOS) {
+            const veiculos = JSON.parse(dados);
+
+            document.getElementById("distancia-veiculo").textContent =
+                veiculos.distancia + " cm";
+
+            document.getElementById("veiculo").textContent =
+                veiculos.detectado ? "VEÍCULO DETECTADO" : "VIA LIVRE";
+        }
+
+        if (topico === TOPICO_SEMAFORO) {
+        const semaforo = JSON.parse(dados);
+
+            document.getElementById("semaforo").textContent = 
+                semaforo.estado +
+                (semaforo.alerta_enchente ? " — ALERTA DE ENCHENTE" : "");
         }
     });
 </script>
