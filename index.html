@@ -1,1 +1,222 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart City - Prevenção a Enchentes</title>
 
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #101827;
+            color: white;
+            padding: 30px;
+        }
+
+        header {
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: 30px;
+            color: #38bdf8;
+        }
+
+        header p {
+            color: #94a3b8;
+            margin-top: 8px;
+        }
+
+        .conexao {
+            margin-top: 15px;
+            color: #fbbf24;
+            font-size: 14px;
+        }
+
+        .alerta {
+            background: #263449;
+            border: 1px solid #475569;
+            padding: 18px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+        }
+
+        .alerta h2 {
+            font-size: 18px;
+            margin-bottom: 6px;
+        }
+
+        .alerta p {
+            color: #cbd5e1;
+        }
+
+        .painel {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 22px;
+        }
+
+        .card h2 {
+            color: #38bdf8;
+            margin-bottom: 20px;
+        }
+
+        .dado {
+            margin-bottom: 18px;
+        }
+
+        .dado p {
+            color: #94a3b8;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .valor {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .estado {
+            display: inline-block;
+            background: #334155;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+        }
+
+        .secao {
+            margin-top: 30px;
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 22px;
+        }
+
+        .secao h2 {
+            color: #38bdf8;
+            margin-bottom: 12px;
+        }
+
+        .secao p {
+            color: #94a3b8;
+            line-height: 1.5;
+        }
+
+        footer {
+            text-align: center;
+            color: #64748b;
+            margin-top: 35px;
+            font-size: 13px;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>SMART CITY</h1>
+        <p>Rede Inteligente de Prevenção a Enchentes</p>
+        <div class="conexao" id="conexao">
+            ● Aguardando conexão MQTT
+        </div>
+    </header>
+
+    <section class="alerta">
+        <h2>Monitoramento de enchentes</h2>
+        <p id="alerta">Aguardando informações do sensor de nível da água.</p>
+    </section>
+
+    <main class="painel">
+
+        <section class="card">
+            <h2>CPS 1 — Monitoramento do Rio</h2>
+
+            <div class="dado">
+                <p>Distância da água</p>
+                <div class="valor" id="distancia-agua">-- cm</div>
+            </div>
+
+            <div class="dado">
+                <p>Nível de risco</p>
+                <span class="estado" id="risco">Aguardando dados</span>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>CPS 2 — Clima e Comporta</h2>
+
+            <div class="dado">
+                <p>Temperatura</p>
+                <div class="valor" id="temperatura">-- °C</div>
+            </div>
+
+            <div class="dado">
+                <p>Umidade do ar</p>
+                <div class="valor" id="umidade">-- %</div>
+            </div>
+
+            <div class="dado">
+                <p>Intensidade da chuva</p>
+                <div class="valor" id="chuva">--</div>
+            </div>
+
+            <div class="dado">
+                <p>Estado da comporta</p>
+                <span class="estado" id="comporta">Aguardando dados</span>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>CPS 3 — Controle de Trânsito</h2>
+
+            <div class="dado">
+                <p>Distância do veículo</p>
+                <div class="valor" id="distancia-veiculo">-- cm</div>
+            </div>
+
+            <div class="dado">
+                <p>Detecção de veículo</p>
+                <span class="estado" id="veiculo">Aguardando dados</span>
+            </div>
+
+            <div class="dado">
+                <p>Estado do semáforo</p>
+                <span class="estado" id="semaforo">Aguardando dados</span>
+            </div>
+        </section>
+
+    </main>
+
+    <section class="secao">
+        <h2>Controle dos sistemas</h2>
+        <p>
+            Os comandos remotos para o monitoramento do rio,
+            a comporta e o semáforo serão adicionados nesta seção.
+        </p>
+    </section>
+
+    <footer>
+        Projeto acadêmico de IoT e Sistemas Ciberfísicos — Smart City
+    </footer>
+
+</body>
+</html>
