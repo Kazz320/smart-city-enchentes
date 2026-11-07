@@ -220,7 +220,7 @@
         Projeto acadêmico de IoT e Sistemas Ciberfísicos — Smart City
     </footer>
 
-    <script>
+   <script>
     const BROKER = "wss://broker.hivemq.com:8884/mqtt";
 
     const cliente = mqtt.connect(BROKER, {
@@ -232,7 +232,6 @@
 
     const TOPICO_AGUA = "smartcity/enchente_7f3a/cps1/agua";
     const TOPICO_ALERTA = "smartcity/enchente_7f3a/cps1/alerta";
-        
     const TOPICO_CLIMA = "smartcity/enchente_7f3a/cps2/clima";
     const TOPICO_COMPORTA = "smartcity/enchente_7f3a/cps2/comporta";
 
@@ -242,13 +241,14 @@
         document.getElementById("conexao").textContent =
             "● MQTT conectado!";
 
-    cliente.subscribe([
-        TOPICO_AGUA,
-        TOPICO_ALERTA,
-        TOPICO_CLIMA,
-        TOPICO_COMPORTA
-    ]);
-});
+        cliente.subscribe([
+            TOPICO_AGUA,
+            TOPICO_ALERTA,
+            TOPICO_CLIMA,
+            TOPICO_COMPORTA
+        ]);
+    });
+
     cliente.on("error", function (erro) {
         console.log("Erro MQTT:", erro);
     });
@@ -279,6 +279,7 @@
                 ? "ALERTA! Risco crítico de enchente!"
                 : "Situação do rio normalizada.";
         }
+
         if (topico === TOPICO_CLIMA) {
             const clima = JSON.parse(dados);
 
@@ -293,15 +294,13 @@
         }
 
         if (topico === TOPICO_COMPORTA) {
-          const comporta = JSON.parse(dados);
+            const comporta = JSON.parse(dados);
 
             document.getElementById("comporta").textContent =
                 comporta.estado + " (" + comporta.angulo + "°)";
         }
-
-            
     });
-    </script>
+</script>
     
     </body>
 </html>
