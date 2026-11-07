@@ -210,15 +210,46 @@
 
     <section class="secao">
         <h2>Controle dos sistemas</h2>
-        <p>
-            Os comandos remotos para o monitoramento do rio,
-            a comporta e o semáforo serão adicionados nesta seção.
-        </p>
-    </section>
+            <div class="controle">
+            <h3>CPS1 — Monitoramento do rio</h3>
+                <button onclick="enviarComando(TOPICO_COMANDO_CPS1, 'SILENCIAR')">   
+                    Silenciar alarme
+                </button>
+                <button onclick="enviarComando(TOPICO_COMANDO_CPS1, 'AUTO')">
+                    Modo automático
+                </button>
+            </div>
 
-    <footer>
-        Projeto acadêmico de IoT e Sistemas Ciberfísicos — Smart City
-    </footer>
+        <div class="controle">
+            <h3>CPS2 — Comporta inteligente</h3>
+            <button onclick="enviarComando(TOPICO_COMANDO_CPS2, 'ABRIR')">
+                Abrir comporta
+            </button>
+            <button onclick="enviarComando(TOPICO_COMANDO_CPS2, 'FECHAR')">
+                Fechar comporta
+            </button>
+            <button onclick="enviarComando(TOPICO_COMANDO_CPS2, 'AUTO')">
+                Modo automático
+            </button>
+        </div>
+
+        <div class="controle">
+            <h3>CPS3 — Semáforo inteligente</h3>
+            <button onclick="enviarComando(TOPICO_COMANDO_CPS3, 'VERDE')">
+                Verde
+            </button>
+            <button onclick="enviarComando(TOPICO_COMANDO_CPS3, 'VERMELHO')">
+                Vermelho
+            </button>
+            <button onclick="enviarComando(TOPICO_COMANDO_CPS3, 'AUTO')">
+                Modo automático
+            </button>
+        </div>
+        </section>
+
+        <footer>
+            Projeto acadêmico de IoT e Sistemas Ciberfísicos — Smart City
+        </footer>
 
    <script>
     const BROKER = "wss://broker.hivemq.com:8884/mqtt";
@@ -236,6 +267,9 @@
     const TOPICO_COMPORTA = "smartcity/enchente_7f3a/cps2/comporta";
     const TOPICO_VEICULOS = "smartcity/enchente_7f3a/cps3/veiculos";
     const TOPICO_SEMAFORO = "smartcity/enchente_7f3a/cps3/semaforo";
+    const TOPICO_COMANDO_CPS1 = "smartcity/enchente_7f3a/cps1/comando";
+    const TOPICO_COMANDO_CPS2 = "smartcity/enchente_7f3a/cps2/comando";
+    const TOPICO_COMANDO_CPS3 = "smartcity/enchente_7f3a/cps3/comando";
 
     cliente.on("connect", function () {
         console.log("Conectado ao HiveMQ!");
@@ -319,6 +353,12 @@
             document.getElementById("semaforo").textContent = 
                 semaforo.estado +
                 (semaforo.alerta_enchente ? " — ALERTA DE ENCHENTE" : "");
+        }
+
+        function enviarComando(topico, comando) {
+            cliente.publish(topico, comando);
+
+            console.log("Comando enviado:", comando);
         }
     });
 </script>
